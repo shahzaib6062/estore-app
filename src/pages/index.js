@@ -1,15 +1,16 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
 import Layout from '@/components/Layout';
-
-const inter = Inter({ subsets: ['latin'] });
+import ProductItem from '@/components/ProductItem';
+import data from 'utils/Data';
 
 export default function Home() {
   return (
     <>
       <Layout>
-        <p className="text-3xl font-bold">EStore App</p>
+        <div className="grid gap-4 grid-cols-1 md:grid-col-3 lg:grid-cols-4">
+          {data.products.map((product) => {
+            return <ProductItem product={product} key={product.slug} />;
+          })}
+        </div>
       </Layout>
     </>
   );
