@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { store } from 'utils/Store';
 
 export default function Layout({ title, children }) {
+  const { state, dispatch } = useContext(store);
+  const { cart } = state;
   return (
     <div>
       <Head>
@@ -18,8 +21,12 @@ export default function Layout({ title, children }) {
               EStore
             </Link>
             <div>
-              <Link href="/cart" className="p-2">
+              <Link href="/Cart" className="p-2">
                 Cart
+                <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                  {cart.cartItems.length > 0 &&
+                    cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </span>
               </Link>
               <Link href="/login" className="p-2">
                 Login
@@ -28,7 +35,7 @@ export default function Layout({ title, children }) {
           </nav>
         </header>
 
-        <main className="cotainer m-auto mt-4 px-4">{children}</main>
+        <main className="cotainer mt-4 px-4">{children}</main>
         <footer className="flex justify-between h-10 mx-auto shadow-inner">
           <p>copyright ©️ 2023 EStore</p>
         </footer>
